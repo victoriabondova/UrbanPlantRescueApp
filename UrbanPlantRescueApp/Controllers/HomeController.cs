@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using UrbanPlantRescueApp.Models;
+using UrbanPlantRescueApp.ViewModels;
 
 namespace UrbanPlantRescueApp.Controllers
 {

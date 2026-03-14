@@ -1,4 +1,4 @@
-namespace UrbanPlantRescueApp.Models
+namespace UrbanPlantRescueApp.ViewModels
 {
     public class ErrorViewModel
     {
