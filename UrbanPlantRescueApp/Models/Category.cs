@@ -10,5 +10,6 @@ namespace UrbanPlantRescueApp.Models
         [Required]
         [MaxLength(CategoryNameMaxLength)]
         public string Name { get; set; } = null!;
+        public virtual ICollection<Plant> Plants { get; set; } = new HashSet<Plant>();
     }
 }
