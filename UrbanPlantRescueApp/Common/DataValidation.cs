@@ -1,0 +1,15 @@
+﻿namespace UrbanPlantRescueApp.Common
+{
+    public static class DataValidation
+    {
+        public static class Category
+        {
+            public const int CategoryNameMinLength = 2;
+            public const int CategoryNameMaxLength = 100;
+        }
+        public static class Plant
+        {
+            public const int NameMinLength = 2;
+        }
+    }
+}
