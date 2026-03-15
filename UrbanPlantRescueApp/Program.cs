@@ -24,6 +24,8 @@ using UrbanPlantRescueApp.Services.Interfaces;
                     })
                     .AddEntityFrameworkStores<ApplicationDbContext>();
                 builder.Services.AddScoped<ICategoryService, CategoryService>();
+                builder.Services.AddScoped<IPlantService, PlantService>();
+
                 builder.Services.AddControllersWithViews();
             
                 WebApplication app = builder.Build();
