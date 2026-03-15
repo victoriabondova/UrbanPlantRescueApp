@@ -49,5 +49,28 @@ namespace UrbanPlantRescueApp.Controllers
             await plantService.AddPlantAsync(model);
             return RedirectToAction(nameof(Index));
         }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var model = await plantService.GetPlantForEditAsync(id);
+
+            if (model == null) return NotFound();
+
+            model.Categories = await categoryService.GetAllCategoriesAsync();
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, PlantFormViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model.Categories = await categoryService.GetAllCategoriesAsync();
+                return View(model);
+            }
+
+            await plantService.EditPlantAsync(id, model);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

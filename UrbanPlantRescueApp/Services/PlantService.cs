@@ -51,5 +51,28 @@
             await dbContext.Plants.AddAsync(plant);
             await dbContext.SaveChangesAsync();
         }
+        public async Task<PlantFormViewModel?> GetPlantForEditAsync(int id)
+        {
+            var plant = await dbContext.Plants.FindAsync(id);
+            if (plant == null) return null;
+            return new PlantFormViewModel
+            {
+                Name = plant.Name,
+                Description = plant.Description,
+                CategoryId = plant.CategoryId
+            };
+        }
+        public async Task EditPlantAsync(int id, PlantFormViewModel model)
+        {
+            var plant = await dbContext.Plants.FindAsync(id);
+            if (plant != null)
+            {
+                plant.Name = model.Name;
+                plant.Description = model.Description;
+                plant.CategoryId = model.CategoryId;
+
+                await dbContext.SaveChangesAsync();
+            }
+        }
     }
 }
