@@ -5,5 +5,6 @@
     {
         Task<IEnumerable<PlantViewModel>> GetAllPlantsAsync();
         Task<PlantViewModel?> GetPlantByIdAsync(int id);
+        Task AddPlantAsync(PlantFormViewModel model);
     }
 }

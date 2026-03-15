@@ -1,15 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using UrbanPlantRescueApp.Services;
 using UrbanPlantRescueApp.Services.Interfaces;
+using UrbanPlantRescueApp.ViewModels;
 
 namespace UrbanPlantRescueApp.Controllers
 {
     public class PlantController : Controller
     {
         private readonly IPlantService plantService;
-
-        public PlantController(IPlantService plantService)
+        private readonly ICategoryService categoryService;
+        public PlantController(IPlantService plantService, ICategoryService categoryService)
         {
             this.plantService = plantService;
+            this.categoryService = categoryService;
         }
         public async Task<IActionResult> Index()
         {
@@ -24,6 +27,27 @@ namespace UrbanPlantRescueApp.Controllers
                 return NotFound();
             }
             return View(plant);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            var categories = await categoryService.GetAllCategoriesAsync();
+            var model = new PlantFormViewModel
+            {
+                Categories = categories
+            };
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(PlantFormViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model.Categories = await categoryService.GetAllCategoriesAsync();
+                return View(model);
+            }
+            await plantService.AddPlantAsync(model);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

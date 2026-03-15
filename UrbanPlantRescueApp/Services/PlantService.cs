@@ -4,6 +4,8 @@
     using UrbanPlantRescueApp.Data;
     using UrbanPlantRescueApp.ViewModels;
     using UrbanPlantRescueApp.Services.Interfaces;
+    using UrbanPlantRescueApp.Models;
+
     public class PlantService : IPlantService
     {
         private readonly ApplicationDbContext dbContext;
@@ -37,6 +39,17 @@
                     CategoryName = p.Category.Name
                 })
                 .FirstOrDefaultAsync();
+        }
+        public async Task AddPlantAsync(PlantFormViewModel model)
+        {
+            var plant = new Plant
+            {
+                Name = model.Name,
+                Description = model.Description,
+                CategoryId = model.CategoryId
+            };
+            await dbContext.Plants.AddAsync(plant);
+            await dbContext.SaveChangesAsync();
         }
     }
 }
