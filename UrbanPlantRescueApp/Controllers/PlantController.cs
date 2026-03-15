@@ -53,13 +53,10 @@ namespace UrbanPlantRescueApp.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var model = await plantService.GetPlantForEditAsync(id);
-
             if (model == null) return NotFound();
-
             model.Categories = await categoryService.GetAllCategoriesAsync();
             return View(model);
         }
-
         [HttpPost]
         public async Task<IActionResult> Edit(int id, PlantFormViewModel model)
         {
@@ -68,8 +65,21 @@ namespace UrbanPlantRescueApp.Controllers
                 model.Categories = await categoryService.GetAllCategoriesAsync();
                 return View(model);
             }
-
             await plantService.EditPlantAsync(id, model);
+            return RedirectToAction(nameof(Index));
+        }
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var plant = await plantService.GetPlantByIdAsync(id);
+            if (plant == null) return NotFound();
+            return View(plant);
+        }
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await plantService.DeletePlantAsync(id);
             return RedirectToAction(nameof(Index));
         }
     }

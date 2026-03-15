@@ -74,5 +74,14 @@
                 await dbContext.SaveChangesAsync();
             }
         }
+        public async Task DeletePlantAsync(int id)
+        {
+            var plant = await dbContext.Plants.FindAsync(id);
+            if (plant != null)
+            {
+                dbContext.Plants.Remove(plant);
+                await dbContext.SaveChangesAsync();
+            }
+        }
     }
 }

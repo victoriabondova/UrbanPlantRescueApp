@@ -1,0 +1,33 @@
+﻿@model UrbanPlantRescueApp.ViewModels.PlantViewModel
+
+@{
+    ViewData["Title"] = "Изтриване на растение";
+}
+
+<div class="container mt-4">
+    <div class="alert alert-danger">
+        <h4>Сигурни ли сте, че искате да изтриете това растение?</h4>
+        <p>Това действие е необратимо!</p>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Име:</dt>
+                <dd class="col-sm-9">@Model.Name</dd>
+
+                <dt class="col-sm-3">Категория:</dt>
+                <dd class="col-sm-9">@Model.CategoryName</dd>
+
+                <dt class="col-sm-3">Описание:</dt>
+                <dd class="col-sm-9">@Model.Description</dd>
+            </dl>
+
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="btn btn-danger">Да, изтрий го</button>
+                <a asp-action="Index" class="btn btn-secondary">Отказ</a>
+            </form>
+        </div>
+    </div>
+</div>
