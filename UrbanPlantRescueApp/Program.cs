@@ -2,10 +2,12 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.IdentityModel.Tokens;
     using UrbanPlantRescueApp.Data;
+using UrbanPlantRescueApp.Services;
+using UrbanPlantRescueApp.Services.Interfaces;
 
     namespace UrbanPlantRescueApp
     {
-        public class PRogram
+        public class Program
         {
             public static void Main(string[] args)
             {
@@ -21,7 +23,7 @@
                         ConfigureIdentity(options, builder.Configuration);
                     })
                     .AddEntityFrameworkStores<ApplicationDbContext>();
-            
+                builder.Services.AddScoped<ICategoryService, CategoryService>();
                 builder.Services.AddControllersWithViews();
             
                 WebApplication app = builder.Build();
