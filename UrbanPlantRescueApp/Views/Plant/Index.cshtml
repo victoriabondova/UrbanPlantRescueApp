@@ -1,0 +1,35 @@
+﻿@model IEnumerable<UrbanPlantRescueApp.ViewModels.PlantViewModel>
+
+@{
+    ViewData["Title"] = "Всички растения";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Списък с растения за спасяване</h1>
+    </div>
+
+    <table class="table table-hover shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>Име</th>
+                <th>Категория</th>
+                <th>Описание</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var plant in Model)
+            {
+                <tr>
+                    <td><strong>@plant.Name</strong></td>
+                    <td><span class="badge bg-info text-dark">@plant.CategoryName</span></td>
+                    <td>@plant.Description</td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@plant.Id" class="btn btn-sm btn-outline-primary">Детайли</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
