@@ -5,9 +5,11 @@
     public class PlantFormViewModel
     {
         [Required]
+        [MinLength(DataValidation.Plant.NameMinLength)]
         [MaxLength(DataValidation.Plant.NameMaxLength)]
         public string Name { get; set; } = null!;
         [Required]
+        [MinLength(DataValidation.Plant.DescriptionMinLength)]
         [MaxLength(DataValidation.Plant.DescriptionMaxLength)]
         public string Description { get; set; } = null!;
         [Required]
