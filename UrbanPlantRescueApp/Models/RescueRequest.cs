@@ -18,6 +18,6 @@ namespace UrbanPlantRescueApp.Models
         public virtual Plant Plant { get; set; } = null!;
         [Required]
         public DateTime RequestedOn { get; set; } = DateTime.UtcNow;
-        public bool IsApproved { get; set; } = false;
+        public string IsApproved { get; set; } = null!;
     }
 }

@@ -27,5 +27,18 @@
             <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Редактирай</a>
             <a asp-action="Index" class="btn btn-secondary">Назад към списъка</a>
         </div>
+        <div class="card-footer d-flex gap-2">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <form asp-controller="RescueRequest" asp-action="Create" method="post">
+                    <input type="hidden" name="plantId" value="@Model.Id" />
+                    <button type="submit" class="btn btn-success">Спаси това растение!</button>
+                </form>
+            }
+            else
+            {
+                <a asp-controller="Account" asp-action="Login" class="btn btn-outline-success">Влезте, за да спасите</a>
+            }
+        </div>
     </div>
 </div>
