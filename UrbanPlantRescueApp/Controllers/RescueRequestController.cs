@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using UrbanPlantRescueApp.Services.Interfaces;
@@ -13,9 +14,11 @@ namespace UrbanPlantRescueApp.Controllers
         {
             this.rescueRequestService = rescueRequestService;
         }
-        public IActionResult Index()
+        [Authorize(Roles ="Admin")]
+        public async Task < IActionResult > Index(int plantId)
         {
-            return View();
+            var requests = await rescueRequestService.GetRequestsByPlantIdAsync(plantId);
+            return View(requests);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -23,8 +26,8 @@ namespace UrbanPlantRescueApp.Controllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier)!;
             await rescueRequestService.CreateRescueRequestAsync(plantId, userId);
-            TempData["Success"] = "Заявката за спасяване беше изпратена успешно!";
             return RedirectToAction("Details", "Plant", new { id = plantId });
         }
+        
     }
 }

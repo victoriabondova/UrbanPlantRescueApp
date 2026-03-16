@@ -15,11 +15,13 @@ namespace UrbanPlantRescueApp.Controllers
         private readonly ApplicationDbContext dbContext;
         private readonly IPlantService plantService;
         private readonly ICategoryService categoryService;
-        public PlantController(ApplicationDbContext dbContext, IPlantService plantService, ICategoryService categoryService)
+        private readonly IRescueRequestService rescueRequestService;
+        public PlantController(ApplicationDbContext dbContext, IPlantService plantService, ICategoryService categoryService, IRescueRequestService rescueRequestService)
         {
             this.dbContext = dbContext;
             this.plantService = plantService;
             this.categoryService = categoryService;
+            this.rescueRequestService = rescueRequestService;
         }
         [AllowAnonymous]
         public async Task<IActionResult> Index()
@@ -34,6 +36,7 @@ namespace UrbanPlantRescueApp.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Requests = await rescueRequestService.GetRequestsByPlantIdAsync(id);
             return View(plant);
         }
         [HttpGet]
