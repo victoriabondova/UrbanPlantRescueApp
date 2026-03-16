@@ -3,20 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UrbanPlantRescueApp.Data;
 
 #nullable disable
 
-namespace UrbanPlantRescueApp.Data.Migrations
+namespace UrbanPlantRescueApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260314173551_InitialDbDesign")]
-    partial class InitialDbDesign
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -243,6 +240,33 @@ namespace UrbanPlantRescueApp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Стайни растения"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Градински цветя"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Сукуленти и кактуси"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Цъфтящи растения"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Билки и подправки"
+                        });
                 });
 
             modelBuilder.Entity("UrbanPlantRescueApp.Models.Plant", b =>
@@ -269,17 +293,62 @@ namespace UrbanPlantRescueApp.Data.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<string>("OwnerId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("OwnerId");
-
                     b.ToTable("Plants");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            Description = "Иконично стайно растение с големи листа.",
+                            Name = "Монстера"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 5,
+                            Description = "Ароматна и лечебна, обича слънце.",
+                            Name = "Лавандула"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 3,
+                            Description = "Красив сукулент с формата на роза.",
+                            Name = "Ечеверия"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryId = 2,
+                            Description = "Обилно цъфтящ храст с големи съцветия.",
+                            Name = "Хортензия"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CategoryId = 4,
+                            Description = "Елегантно цвете с изящни цветове.",
+                            Name = "Орхидея"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CategoryId = 5,
+                            Description = "Ароматна подправка, подходяща за саксия.",
+                            Name = "Розмарин"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CategoryId = 3,
+                            Description = "Лековито растение, лесно за отглеждане.",
+                            Name = "Алое Вера"
+                        });
                 });
 
             modelBuilder.Entity("UrbanPlantRescueApp.Models.RescueRequest", b =>
@@ -368,18 +437,10 @@ namespace UrbanPlantRescueApp.Data.Migrations
                     b.HasOne("UrbanPlantRescueApp.Models.Category", "Category")
                         .WithMany("Plants")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Category");
-
-                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("UrbanPlantRescueApp.Models.RescueRequest", b =>

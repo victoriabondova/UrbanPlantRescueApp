@@ -36,7 +36,8 @@
                     Id = p.Id,
                     Name = p.Name,
                     Description = p.Description,
-                    CategoryName = p.Category.Name
+                    CategoryName = p.Category.Name,
+                    ImageUrl = p.ImageUrl
                 })
                 .FirstOrDefaultAsync();
         }
@@ -46,7 +47,8 @@
             {
                 Name = model.Name,
                 Description = model.Description,
-                CategoryId = model.CategoryId
+                CategoryId = model.CategoryId,
+                ImageUrl = model.ImageUrl
             };
             await dbContext.Plants.AddAsync(plant);
             await dbContext.SaveChangesAsync();

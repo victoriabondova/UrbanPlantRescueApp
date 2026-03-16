@@ -4,5 +4,7 @@
     public interface ICategoryService
     {
         Task<IEnumerable<CategoryViewModel>> GetAllCategoriesAsync();
+        Task AddCategoryAsync(CategoryFormViewModel model);
+        Task<bool> CategoryExistsAsync(string name);
     }
 }

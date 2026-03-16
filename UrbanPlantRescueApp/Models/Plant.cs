@@ -20,10 +20,6 @@ namespace UrbanPlantRescueApp.Models
         [ForeignKey(nameof(Category))]
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; } = null!;
-        
-        public string? OwnerId { get; set; } = null!;
-        [ForeignKey(nameof(OwnerId))]
-        public virtual IdentityUser Owner { get; set; } = null!;
         public virtual ICollection<RescueRequest> RescueRequests { get; set; } = new List<RescueRequest>();
     }
 }

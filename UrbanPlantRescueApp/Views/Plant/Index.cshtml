@@ -28,9 +28,12 @@
                     <td><span class="badge bg-info text-dark">@plant.CategoryName</span></td>
                     <td>@plant.Description</td>
                     <td>
-                        <a asp-action="Details" asp-route-id="@plant.Id" class="btn btn-sm btn-outline-primary">Детайли</a>
-                        <a asp-action="Edit" asp-route-id="@plant.Id" class="btn btn-sm btn-outline-warning">Редактирай</a>
-                        <a asp-action="Delete" asp-route-id="@plant.Id" class="btn btn-sm btn-outline-danger">Изтрий</a>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a asp-action="Details" asp-route-id="@plant.Id" class="btn btn-sm btn-info text-white">Детайли</a>
+                            <a asp-action="Edit" asp-route-id="@plant.Id" class="btn btn-sm btn-outline-warning">Редактирай</a>
+                            <a asp-action="Delete" asp-route-id="@plant.Id" class="btn btn-sm btn-outline-danger">Изтрий</a>
+                        }
                     </td>
                 </tr>
             }

@@ -9,11 +9,11 @@ using UrbanPlantRescueApp.Data;
 
 #nullable disable
 
-namespace UrbanPlantRescueApp.Data.Migrations
+namespace UrbanPlantRescueApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260315114624_SeedInitialDataAndConfigurations")]
-    partial class SeedInitialDataAndConfigurations
+    [Migration("20260316101923_SeedInitialDb")]
+    partial class SeedInitialDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -296,14 +296,9 @@ namespace UrbanPlantRescueApp.Data.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<string>("OwnerId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("OwnerId");
 
                     b.ToTable("Plants");
 
@@ -448,14 +443,7 @@ namespace UrbanPlantRescueApp.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.Navigation("Category");
-
-                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("UrbanPlantRescueApp.Models.RescueRequest", b =>

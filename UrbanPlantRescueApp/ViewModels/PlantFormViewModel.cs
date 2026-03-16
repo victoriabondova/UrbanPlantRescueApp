@@ -12,6 +12,7 @@
         [MinLength(DataValidation.Plant.DescriptionMinLength)]
         [MaxLength(DataValidation.Plant.DescriptionMaxLength)]
         public string Description { get; set; } = null!;
+        public string ImageUrl { get; set; } = null!;
         [Required]
         [Display(Name = "Категория")]
         public int CategoryId { get; set; }

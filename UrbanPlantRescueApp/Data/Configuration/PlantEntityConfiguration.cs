@@ -29,10 +29,6 @@ namespace UrbanPlantRescueApp.Data.Configuration
                 .WithMany(c => c.Plants)
                 .HasForeignKey(p => p.CategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
-            entity.HasOne(p => p.Owner)
-                .WithMany()
-                .HasForeignKey(p => p.OwnerId)
-                .OnDelete(DeleteBehavior.Restrict);
             entity.HasData(Plants);
         }
     }

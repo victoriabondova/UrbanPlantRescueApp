@@ -1,0 +1,31 @@
+﻿@model UrbanPlantRescueApp.ViewModels.PlantViewModel
+
+@{
+    ViewData["Title"] = "Детайли за растението";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h2>@Model.Name</h2>
+        </div>
+        <div class="card-body">
+            <h5 class="card-subtitle mb-2 text-muted">Категория: @Model.CategoryName</h5>
+            <p class="card-text mt-3">@Model.Description</p>
+        </div>
+        <div class="card-body">
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Model.ImageUrl" class="img-fluid rounded mb-3" alt="@Model.Name" />
+            }
+            else
+            {
+                <p class="text-muted">Няма зададена снимка за това растение.</p>
+            }
+        </div>
+        <div class="card-footer">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Редактирай</a>
+            <a asp-action="Index" class="btn btn-secondary">Назад към списъка</a>
+        </div>
+    </div>
+</div>
