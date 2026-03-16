@@ -72,12 +72,14 @@
                 plant.Name = model.Name;
                 plant.Description = model.Description;
                 plant.CategoryId = model.CategoryId;
-
+                plant.ImageUrl = model.ImageUrl;
                 await dbContext.SaveChangesAsync();
             }
         }
         public async Task DeletePlantAsync(int id)
         {
+            var relatedRequests = dbContext.RescueRequests.Where(r => r.PlantId == id);
+            dbContext.RescueRequests.RemoveRange(relatedRequests);
             var plant = await dbContext.Plants.FindAsync(id);
             if (plant != null)
             {
